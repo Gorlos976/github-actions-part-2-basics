@@ -1,6 +1,6 @@
 name: github-actions-part-2-basics
 env:
-     EB_PACKGE_S3_BUCKET_NAME: arn:aws:s3:::my-flask-app-packages
+     EB_PACKGE_S3_BUCKET_NAME: my-flask-app-packages
      EB_APPLIVATION_NAME: "MyFlask"
      EB_ENVIROMENT_NAME: "MyFlask-env"
      DEPLOY_PACKAGE_NAME: "flask_app_${{ github.sha }}.zip"
