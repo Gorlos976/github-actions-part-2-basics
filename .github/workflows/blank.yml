@@ -1,40 +1,30 @@
-#-------------------------
-#GItHub Action Part-1-Basic
-#
-#Copyleft (c) by Denis Astahov 2019
-#------------------------
-# This is a basic workflow to help you get started with Actions
-
-name: My-GitHubAction-Basics
+name: github-actions-part-2-basics
 env:
-      
-     APPLIVATION_NAME: "MyFlask"
-     DEPLOY_PACKAGE_NAME: "flask-deploy-ver-${{ github.sha }}"
+     EB_PACKGE_S3_BUCKET_NAME: arn:aws:s3:::my-flask-app-packages
+     EB_APPLIVATION_NAME: "MyFlask"
+     EB_ENVIROMENT_NAME: "MyFlask-env"
+     DEPLOY_PACKAGE_NAME: "flask_app_${{ github.sha }}.zip"
+     AWS_REGION_NAME: "us-east-1"
 
 on:
      push        :
      pull_request:
       branches    : -master
 
-  # Allows you to run this workflow manually from the Actions tab
-     workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
- my_testing:
-    # The type of runner that the job will run on
+ 
+ my_ci_part:
+   
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  
     steps:
-      - name: Print Hello Message
-        run: echo "Hello world from Testing job"
-      - name: Execute few commands
-        run: |
-         echo "Hello Messege1"
-         echo "Hello Messege1"
-         echo "Application name: ${{env.APPLIVATION_NAME }}"
+      - name: Git clone our repo
+        uses: Action/checkout@v1
+      - name: Create Zip deploymant package
+        run: zip -r ${{env.DEPLOY_PACKAGE_NAME}} ./ -x* .git*
+        
 
          
       - name: List current foldor 
