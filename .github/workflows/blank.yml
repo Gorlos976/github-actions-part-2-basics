@@ -27,45 +27,11 @@ jobs:
         
 
          
-      - name: List current foldor 
-        run:  ls -la
+    
 
-      - name: git clone my repo 
-        uses: actions/checkout@v1
-
-      - name: List current foldor 
-        run:  ls -la
-      # Runs a set of commands using the runners shell
-      - name: Print Hello Message
-        run: echo "Hello world from Deploy job" 
-
- my_deploy:
-        
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-         
-
-
-    steps:
-      - name: Print Hello Message in Testing
-        run: echo "Hello world from Testing job"
-        
-      - name: Print env vars 
-        run: |
-         echo "VAR1-${{env.VAR1}}"
-         echo "VAR2-${{env.VAR2}}"
-         echo "VAR3-$Local_var"
-        env:
-          Local_var: "This is Superr local Enviroment varibale"
-        
-     # Runs a set of commands using the runners shell
-      - name: Print Hello Message in Deploy
-        run: echo "Hello world from Deploy job" 
-        
-      - name: Printing Deploy package
-        run : echo "Deploy package name is ${{env.DEPLOY_PACKAGE_NAME}}"
-      - name: Let's test some packages iof the are here 1
-        run: aws --version
-        
-   
+      - name: Configure my AWS Credentials 
+        uses: aws-actions/configure-aws-checkout@v1
+        with: 
+           aws-access-key-id    : ${{secret.MY_AWS_ACCESS_KEY}}
+           aws-secret_access-key: ${{secret.MY_AWS_SECRET_KEY}}
+           aws-region           : ${{env.AWS_REGION_NAME }}
