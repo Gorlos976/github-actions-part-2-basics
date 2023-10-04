@@ -1,4 +1,5 @@
-# github-actions-part-1-basics
+# github-actions-part-2-basics
+ GitHub Action Deploy Flask to AWS Elastick Beanstalk
 
 Status of Last Deploymant:<br>
 
