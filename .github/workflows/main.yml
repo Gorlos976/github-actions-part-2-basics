@@ -46,7 +46,7 @@ jobs:
           aws-region           : ${{ env.AWS_REGION_NAME }}
       - name: Deploy new ElasticBeanstalk Application Version
         run: |
-           aws s3 cp /путь_к_локальному_файлу.zip s3://my-flask-app-packages/путь_в_S3_назначения/файл.zip
+           aws s3 cp /env.DEPLOY_PACKAGE_NAME .zip s3://my-flask-app-packages/env.EB_PACKGE_S3_BUCKET_NAME .zip
            aws elasticbeanstalk update-environment --environment-name Myflask-env --region us-east-1
            aws elasticbeanstalk create-application --application-name MyFlask --region us-east-1
            aws elasticbeanstalk create-environment \
