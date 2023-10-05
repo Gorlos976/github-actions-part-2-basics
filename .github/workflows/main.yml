@@ -46,14 +46,21 @@ jobs:
           aws-region           : ${{ env.AWS_REGION_NAME }}
       - name: Creat new ElasticBeanstalk aplication
         run: |
-          aws s3 cp <LOCAL_FILE_PATH> s3://$EB_PACKGE_S3_BUCKET_NAME/<DESTINATION_PATH>
-          aws elasticbeanstalk update-environment --environment-name $EB_ENVIRONMENT_NAME --region $AWS_REGION_NAME
-          aws elasticbeanstalk create-application --application-name $EB_APPLIVATION_NAME --region $AWS_REGION_NAME
-          --application-name ${{ env.EB_APPLIVATION_NAME }} \
-          --source-bundle S3Bucket="${{ env.EB_PACKGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
-          --version-label "Ver-${{ github.sha }}" \
-          --description "CommitSHA-${{ github.sha }}"
-           
+      - name: Create new [ElasticBeanstalk](https://www.google.com/search?q=ElasticBeanstalk) application
+        run: |
+         aws s3 cp [LOCAL_FILE_PATH](https://www.google.com/search?q=LOCAL_FILE_PATH) s3://$EB_PACKGE_S3_BUCKET_NAME/[DESTINATION_PATH](https://www.google.com/search?q=DESTINATION_PATH)
+         aws elasticbeanstalk update-environment --environment-name $EB_ENVIRONMENT_NAME --region $AWS_REGION_NAME
+         aws elasticbeanstalk create-application --application-name $EB_APPLIVATION_NAME --region $AWS_REGION_NAME
+         aws elasticbeanstalk create-environment \
+         --application-name $EB_APPLIVATION_NAME \
+         --environment-name $EB_ENVIRONMENT_NAME \
+         --solution-stack-name "64bit Amazon Linux 2 v5.4.3 running Python 3.8" \
+         --version-label "Ver-${{ github.sha }}" \
+         --description "CommitSHA-${{ github.sha }}" \
+         --option-settings Namespace=aws:autoscaling:asg,OptionName=MinSize,Value=1 \
+         --option-settings Namespace=aws:autoscaling:asg,OptionName=MaxSize,Value=2 \
+         --option-settings Namespace=aws:autoscaling:asg,OptionName=DesiredCapacity,Value=2 \
+         --region $AWS_REGION_NAME
       - name: Deploy new ElasticBeanstalk Application Version
         run: aws elasticbeamstalk update-enviroment --enviroment-name ${{ env.EB_ENVIROMENT_NAME }} --version-label "Ver-${{ github.sha}}"
       - name: Print Happy Message for CD finish
