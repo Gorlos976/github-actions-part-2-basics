@@ -46,7 +46,7 @@ jobs:
           aws-region           : ${{ env.AWS_REGION_NAME }}
       - name: Creat new ElasticBeanstalk aplication
         run: |
-          aws elasticbeanstalk update-environment --environment-name Myflask-env --version-label "Ver-5fff7b647ad1c87ba707c0f56d7c03b7c63b345b"
+          aws elasticbeanstalk update-environment --environment-name
           --application-name ${{ env.EB_APPLIVATION_NAME }} \
           --source-bundle S3Bucket="${{ env.EB_PACKGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
           --version-label "Ver-${{ github.sha }}" \
