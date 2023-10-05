@@ -45,8 +45,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
           aws-region           : ${{ env.AWS_REGION_NAME }}
       - name: Deploy new ElasticBeanstalk Application Version
-        run: |
-         aws s3 cp $DEPLOY_PACKAGE_NAME s3://$EB_PACKGE_S3_BUCKET_NAME/$DEPLOY_PACKAGE_NAME.zip
+        run: |  
          aws elasticbeanstalk update-environment --environment-name $EB_ENVIRONMENT_NAME --region $AWS_REGION_NAME
          aws elasticbeanstalk create-application --application-name $EB_APPLICATION_NAME --region $AWS_REGION_NAME
          aws elasticbeanstalk create-environment \
